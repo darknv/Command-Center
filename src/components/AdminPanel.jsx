@@ -6,29 +6,27 @@ const AdminPanel = ({ registry, refreshData, scriptUrl, secretKey }) => {
   const [type, setType] = useState("General");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleAdd = async (e) => {
+const handleAdd = async (e) => {
     e.preventDefault();
     if (!name || !id) return alert("Name and Sheet ID are required!");
     setIsSubmitting(true);
 
     try {
       const response = await fetch(scriptUrl, {
-        method: "POST",
-        body: JSON.stringify({
-          action: "addTracker",
-          key: secretKey,
-          name,
-          id,
-          type,
-        }),
+        method: 'POST',
+        // ADD THIS HEADERS OBJECT
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        },
+        body: JSON.stringify({ action: 'addTracker', key: secretKey, name, id, type }),
       });
       const result = await response.json();
-
+      
       if (result.success) {
-        setName("");
-        setId("");
-        setType("General");
-        refreshData(); // Refresh the dashboard data
+        setName('');
+        setId('');
+        setType('General');
+        refreshData(); 
       } else {
         alert("Error: " + result.error);
       }
@@ -40,22 +38,21 @@ const AdminPanel = ({ registry, refreshData, scriptUrl, secretKey }) => {
   };
 
   const handleDelete = async (deleteId) => {
-    if (!window.confirm("Are you sure you want to remove this tracker?"))
-      return;
+    if (!window.confirm("Are you sure you want to remove this tracker?")) return;
 
     try {
       const response = await fetch(scriptUrl, {
-        method: "POST",
-        body: JSON.stringify({
-          action: "deleteTracker",
-          key: secretKey,
-          id: deleteId,
-        }),
+        method: 'POST',
+        // ADD THIS HEADERS OBJECT
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        },
+        body: JSON.stringify({ action: 'deleteTracker', key: secretKey, id: deleteId }),
       });
       const result = await response.json();
-
+      
       if (result.success) {
-        refreshData(); // Refresh the dashboard data
+        refreshData(); 
       } else {
         alert("Error: " + result.error);
       }
@@ -63,6 +60,8 @@ const AdminPanel = ({ registry, refreshData, scriptUrl, secretKey }) => {
       alert("Failed to delete tracker: " + err.message);
     }
   };
+
+ 
 
   return (
     <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
