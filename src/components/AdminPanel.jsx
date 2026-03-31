@@ -106,7 +106,7 @@ const AdminPanel = ({ registry, refreshData, scriptUrl, secretKey }) => {
             <option value="General">General</option>
             <option value="Payroll">Payroll</option>
             <option value="Coding">Coding</option>
-            <option value="Gaming">Gaming</option>
+            
           </select>
           <button
             type="submit"
