@@ -6,29 +6,37 @@ const AdminPanel = ({ registry, refreshData, scriptUrl, secretKey }) => {
   const [type, setType] = useState("General");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-const handleAdd = async (e) => {
+  const handleAdd = async (e) => {
     e.preventDefault();
     if (!name || !id) return alert("Name and Sheet ID are required!");
     setIsSubmitting(true);
 
+    // 1. Use URLSearchParams to bypass CORS and match the Apps Script logic
+    const formData = new URLSearchParams();
+    formData.append("action", "addTracker");
+    formData.append("key", secretKey);
+    formData.append("name", name);
+    formData.append("id", id);
+    formData.append("type", type);
+
     try {
       const response = await fetch(scriptUrl, {
-        method: 'POST',
-        // ADD THIS HEADERS OBJECT
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
-        },
-        body: JSON.stringify({ action: 'addTracker', key: secretKey, name, id, type }),
+        method: "POST",
+        // Note: No headers needed here, URLSearchParams sets them automatically
+        body: formData,
       });
       const result = await response.json();
-      
+
       if (result.success) {
-        setName('');
-        setId('');
-        setType('General');
-        refreshData(); 
+        setName("");
+        setId("");
+        setType("General");
+        refreshData();
       } else {
-        alert("Error: " + result.error);
+        // Detailed error to help us debug
+        alert(
+          `Error: ${result.error}${result.receivedKey ? ` (Key received: ${result.receivedKey})` : ""}`,
+        );
       }
     } catch (err) {
       alert("Failed to add tracker: " + err.message);
@@ -38,21 +46,23 @@ const handleAdd = async (e) => {
   };
 
   const handleDelete = async (deleteId) => {
-    if (!window.confirm("Are you sure you want to remove this tracker?")) return;
+    if (!window.confirm("Are you sure you want to remove this tracker?"))
+      return;
+
+    const formData = new URLSearchParams();
+    formData.append("action", "deleteTracker");
+    formData.append("key", secretKey);
+    formData.append("id", deleteId);
 
     try {
       const response = await fetch(scriptUrl, {
-        method: 'POST',
-        // ADD THIS HEADERS OBJECT
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
-        },
-        body: JSON.stringify({ action: 'deleteTracker', key: secretKey, id: deleteId }),
+        method: "POST",
+        body: formData,
       });
       const result = await response.json();
-      
+
       if (result.success) {
-        refreshData(); 
+        refreshData();
       } else {
         alert("Error: " + result.error);
       }
@@ -61,11 +71,8 @@ const handleAdd = async (e) => {
     }
   };
 
- 
-
   return (
     <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
-      {/* Add New Tracker Form */}
       <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-md border border-gray-200 dark:border-slate-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
           ➕ Add New Tracker
@@ -98,6 +105,8 @@ const handleAdd = async (e) => {
             <option value="Finance">Finance</option>
             <option value="General">General</option>
             <option value="Payroll">Payroll</option>
+            <option value="Coding">Coding</option>
+            <option value="Gaming">Gaming</option>
           </select>
           <button
             type="submit"
@@ -109,7 +118,6 @@ const handleAdd = async (e) => {
         </form>
       </div>
 
-      {/* Manage Existing Trackers */}
       <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-md border border-gray-200 dark:border-slate-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
           ⚙️ Manage Trackers
