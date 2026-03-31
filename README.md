@@ -1,16 +1,32 @@
-# React + Vite
+# 🚀 Unified Command Center
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A centralized, professional dashboard built to aggregate and manage various Google Sheet trackers. Designed for high scalability and ease of use.
 
-Currently, two official plugins are available:
+## 🛠️ Tech Stack
+- **Library:** React 18 (Vite)
+- **Styling:** Tailwind CSS (Dark/Light Mode)
+- **API Engine:** Google Apps Script (Web App)
+- **Data Source:** Google Sheets API
+- **Hosting:** Vercel
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Features
+- **Bento Grid Layout:** Clean, modular UI for high-level data visualization.
+- **Admin Control:** Dedicated panel to link/unlink new spreadsheets dynamically.
+- **Security:** Secure PIN-entry system with environment variable protection.
+- **Usage Tracking:** Smart sorting of trackers based on your personal frequency.
+- **Category Filtering:** Instantly filter trackers by Type (Coding, Finance, Admin, etc.).
 
-## React Compiler
+## 🏗️ System Architecture
+The project uses a **Metadata-Driven** approach. A "Master Registry" Google Sheet stores the metadata for all sub-trackers. 
+1. **React** fetches the registry via a **Google Apps Script API**.
+2. The UI dynamically maps the registry into **Tracker Cards**.
+3. Each card independently fetches its own live data from its respective sheet.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Installation & Setup
+1. Clone the repository.
+2. Install dependencies: `npm install`.
+3. Create a `.env` file based on `.env.example`.
+4. Run locally: `npm run dev`.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🔒 Security
+Sensitive URLs and PINs are managed via **Environment Variables** and are never pushed to the repository.
