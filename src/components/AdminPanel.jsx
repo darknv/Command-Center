@@ -77,7 +77,7 @@ const AdminPanel = ({ registry, refreshData, scriptUrl, secretKey }) => {
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
           ➕ Add New Tracker
         </h2>
-        <form
+{/*         <form
           onSubmit={handleAdd}
           className="grid grid-cols-1 md:grid-cols-4 gap-4"
         >
@@ -115,7 +115,54 @@ const AdminPanel = ({ registry, refreshData, scriptUrl, secretKey }) => {
           >
             {isSubmitting ? "Adding Tracker..." : "Add to Dashboard"}
           </button>
+        </form> */}
+
+        {/* // ... inside your AdminPanel return statement ... */}
+
+        <form onSubmit={handleAdd} className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <input
+            type="text"
+            placeholder="Name (e.g., Invoice Generator)"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="md:col-span-1 p-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+          />
+          <input
+            type="text"
+            // NEW: Dynamic Placeholder!
+            placeholder={type === 'Web App' ? "Paste Full Web App URL here" : "Google Sheet ID (from URL)"}
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+            className="md:col-span-2 p-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+          />
+          <select
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            className="md:col-span-1 p-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-white outline-none"
+          >
+            <option value="Admin">Admin</option>
+            <option value="HR">HR</option>
+            <option value="Finance">Finance</option>
+            <option value="General">General</option>
+            <option value="Payroll">Payroll</option>
+            <option value="Coding">Coding</option>
+            {/* NEW: Web App Option */}
+            <option value="Web App">Web App</option> 
+          </select>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="md:col-span-4 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-bold py-3 rounded-lg transition-colors"
+          >
+            {isSubmitting ? "Adding..." : "Add to Dashboard"}
+          </button>
         </form>
+
+
+
+
+
+
       </div>
 
       <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-md border border-gray-200 dark:border-slate-700">
