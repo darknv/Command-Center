@@ -77,45 +77,6 @@ const AdminPanel = ({ registry, refreshData, scriptUrl, secretKey }) => {
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
           ➕ Add New Tracker
         </h2>
-{/*         <form
-          onSubmit={handleAdd}
-          className="grid grid-cols-1 md:grid-cols-4 gap-4"
-        >
-          <input
-            type="text"
-            placeholder="Tracker Name (e.g., CoC War Log)"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="md:col-span-1 p-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
-          />
-          <input
-            type="text"
-            placeholder="Google Sheet ID (from URL)"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-            className="md:col-span-2 p-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
-          />
-          <select
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-            className="md:col-span-1 p-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-white outline-none"
-          >
-            <option value="Admin">Admin</option>
-            <option value="HR">HR</option>
-            <option value="Finance">Finance</option>
-            <option value="General">General</option>
-            <option value="Payroll">Payroll</option>
-            <option value="Coding">Coding</option>
-            
-          </select>
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="md:col-span-4 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-bold py-3 rounded-lg transition-colors"
-          >
-            {isSubmitting ? "Adding Tracker..." : "Add to Dashboard"}
-          </button>
-        </form> */}
 
         {/* // ... inside your AdminPanel return statement ... */}
 
@@ -184,9 +145,9 @@ const AdminPanel = ({ registry, refreshData, scriptUrl, secretKey }) => {
                   <h3 className="font-bold text-gray-900 dark:text-white">
                     {tracker["Tracker Name"]}
                   </h3>
-                  <p className="text-xs text-gray-500 dark:text-slate-400 font-mono mt-1">
+                  {/* <p className="text-xs text-gray-500 dark:text-slate-400 font-mono mt-1">
                     ID: {tracker["Sheet ID"]}
-                  </p>
+                  </p> */}
                 </div>
                 <button
                   onClick={() => handleDelete(tracker["Sheet ID"])}

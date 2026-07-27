@@ -27,7 +27,7 @@ const Home = ({ registry, onOpenTracker }) => {
   return (
     <div className="space-y-12 animate-fade-in">
       <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-8 md:p-10 shadow-xl text-white">
-        <h2 className="text-3xl font-extrabold mb-2">Welcome Back, Commander 👋</h2>
+        <h2 className="text-3xl font-extrabold mb-2">Welcome Back Nv 👋</h2>
         <p className="text-blue-100 text-lg italic opacity-90">"{quote}"</p>
       </div>
 
